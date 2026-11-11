@@ -1,0 +1,1 @@
+{"routes":[{"path":"/","title":"OrbitFeed — Home"},{"path":"/explore","title":"OrbitFeed — Explore"},{"path":"/profile/:username","title":"OrbitFeed — Profile"}]}

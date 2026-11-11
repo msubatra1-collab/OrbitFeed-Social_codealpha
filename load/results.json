@@ -1,0 +1,19 @@
+{
+  "requests": 3512,
+  "averageRequestsPerSecond": 234.14,
+  "averageLatencyMs": 143.44,
+  "p50LatencyMs": 80,
+  "p99LatencyMs": 746,
+  "errors": 0,
+  "timeouts": 0,
+  "non2xx": 0,
+  "errorRatePercent": 0,
+  "statusCodes": {
+    "200": {
+      "count": 1760
+    },
+    "201": {
+      "count": 1752
+    }
+  }
+}

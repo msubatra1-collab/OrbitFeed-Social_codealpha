@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ed">
+  <meta name="description" content="OrbitFeed — a calmer place for everyday conversations.">
+  <meta property="og:title" content="OrbitFeed — A good conversation starts somewhere">
+  <meta property="og:description" content="Share a thought, find your people, and follow the conversations that matter.">
+  <title>OrbitFeed — A good conversation starts somewhere</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="side-rail" aria-label="Main navigation">
+      <a class="brand" href="/" data-route="/" aria-label="OrbitFeed home">
+        <span class="brand-mark" aria-hidden="true"><i></i><b></b></span>
+        <span class="brand-name">orbit<span>feed</span></span>
+      </a>
+      <nav class="primary-nav">
+        <a class="nav-link is-active" href="/" data-route="/" id="feed-nav"><span class="nav-icon">◷</span> Your feed</a>
+        <a class="nav-link" href="/explore" data-route="/explore"><span class="nav-icon">⌕</span> Explore</a>
+        <button class="nav-link nav-button" id="profile-nav"><span class="nav-icon">◉</span> Your profile</button>
+      </nav>
+      <div class="rail-bottom">
+        <div class="rail-note"><span class="note-dot"></span><span>Make room for<br>good conversations.</span></div>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme"><span class="theme-glyph">◐</span><span>Appearance</span></button>
+        <div class="account-slot" id="account-slot"></div>
+      </div>
+    </aside>
+
+    <header class="mobile-header">
+      <a class="brand" href="/" data-route="/" aria-label="OrbitFeed home"><span class="brand-mark" aria-hidden="true"><i></i><b></b></span><span class="brand-name">orbit<span>feed</span></span></a>
+      <button class="icon-button" id="mobile-theme-toggle" type="button" aria-label="Switch color theme">◐</button>
+    </header>
+
+    <main class="main-column" id="main-content" tabindex="-1">
+      <div class="loading-state"><span class="loader"></span><span>Finding your corner of the conversation…</span></div>
+    </main>
+
+    <aside class="context-rail" id="context-rail" aria-label="Discover people">
+      <div class="search-card">
+        <label for="people-search">Find your people</label>
+        <div class="search-box"><span aria-hidden="true">⌕</span><input id="people-search" type="search" placeholder="Search names or @handles" autocomplete="off"></div>
+        <div id="search-results" class="search-results" aria-live="polite"></div>
+      </div>
+      <div class="context-quote"><span class="quote-mark">“</span><p>A good conversation<br>starts somewhere.</p><span class="quote-rule"></span><small>THE ORBIT NOTE</small></div>
+      <footer class="site-footer"><span>OrbitFeed</span><span>Made for the in-between thoughts.</span><a href="/healthz" target="_blank" rel="noreferrer">Service status</a></footer>
+    </aside>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <a href="/" data-route="/" id="mobile-feed-nav"><span>◷</span>Feed</a>
+    <a href="/explore" data-route="/explore"><span>⌕</span>Explore</a>
+    <button id="mobile-profile-nav" type="button"><span>◉</span>Profile</button>
+  </nav>
+
+  <dialog class="modal" id="auth-dialog" aria-labelledby="auth-title">
+    <button class="modal-close" type="button" data-close="auth-dialog" aria-label="Close dialog">×</button>
+    <div class="modal-kicker">YOUR ORBIT STARTS HERE</div>
+    <h2 id="auth-title">Come on in.</h2>
+    <p class="modal-copy" id="auth-copy">Find the conversations that feel like yours.</p>
+    <div class="auth-tabs"><button type="button" class="auth-tab is-active" data-auth-mode="login">Sign in</button><button type="button" class="auth-tab" data-auth-mode="register">Create account</button></div>
+    <form id="auth-form" novalidate>
+      <label class="field" id="username-field" hidden><span>Username / @handle</span><input name="handle" type="text" autocomplete="nickname" autocapitalize="none" spellcheck="false" minlength="3" maxlength="30" pattern="[A-Za-z0-9_]{3,30}" title="Use 3–30 letters, numbers, or underscores." aria-describedby="username-help" placeholder="e.g. paperplanes"><small class="field-hint" id="username-help">3–30 letters, numbers, or underscores. This is your public @handle.</small></label>
+      <label class="field" id="display-field" hidden><span>Display name</span><input name="displayName" autocomplete="name" maxlength="60" placeholder="What should we call you?"></label>
+      <label class="field"><span id="identifier-label">Email or username</span><input name="identifier" autocomplete="username" maxlength="254" placeholder="you@example.com" required></label>
+      <label class="field"><span>Password</span><input name="password" type="password" autocomplete="current-password" minlength="10" maxlength="72" placeholder="At least 10 characters" required></label>
+      <button class="button button-primary button-wide" type="submit" id="auth-submit">Sign in</button>
+      <p class="form-message" id="auth-message" role="alert"></p>
+    </form>
+    <p class="fine-print">By joining, you agree to be kind and keep the conversation human.</p>
+  </dialog>
+
+  <dialog class="modal" id="profile-dialog" aria-labelledby="profile-edit-title">
+    <button class="modal-close" type="button" data-close="profile-dialog" aria-label="Close dialog">×</button>
+    <div class="modal-kicker">YOUR LITTLE CORNER</div>
+    <h2 id="profile-edit-title">Edit profile</h2>
+    <form id="profile-form">
+      <label class="field"><span>Display name</span><input name="displayName" maxlength="60" required></label>
+      <label class="field"><span>Bio</span><textarea name="bio" maxlength="160" rows="3" placeholder="A little about you"></textarea></label>
+      <label class="field"><span>Profile picture</span><input name="avatar" type="file" accept="image/jpeg,image/png,image/webp,image/gif"></label>
+      <button class="button button-primary button-wide" type="submit">Save profile</button>
+      <p class="form-message" id="profile-message" role="alert"></p>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="relations-dialog" aria-labelledby="relations-title">
+    <button class="modal-close" type="button" data-close="relations-dialog" aria-label="Close dialog">×</button>
+    <div class="modal-kicker">PEOPLE IN THIS ORBIT</div>
+    <h2 id="relations-title">Followers</h2>
+    <div class="relations-list" id="relations-list"></div>
+    <button class="button button-quiet button-wide" id="relations-more" data-action="more-relations" hidden>Load more</button>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
